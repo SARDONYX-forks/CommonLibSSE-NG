@@ -15,7 +15,6 @@ on:
       - "conanfile.py"
       - "vcpkg.json"
   pull_request:
-    branches: [main, feature/*]
   workflow_dispatch:
 
 env:
