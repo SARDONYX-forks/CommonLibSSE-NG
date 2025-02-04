@@ -54,7 +54,7 @@ jobs:
       - name: Build
         uses: lukka/run-cmake@v10.8
         with:
-          cmakeListsTxtPath: ${{ github.workspace }}/main/CMakeLists.txt
+          cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
           configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
           buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
         continue-on-error: true
@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.0
         with:
           name: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-          path: ${{ github.workspace }}/main/build/
+          path: ${{ github.workspace }}/build
 
       # - name: Release
       #   uses: ncipollo/release-action@v1.14.0
