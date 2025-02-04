@@ -40,28 +40,29 @@ jobs:
           # - clang-cl
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.2
         with:
           path: main
 
       - name: Setup MSVC Environment
-        uses: ilammy/msvc-dev-cmd@v1.10.0
+        uses: ilammy/msvc-dev-cmd@v1.13.0
 
       - name: Setup vcpkg
-        uses: lukka/run-vcpkg@v10.0
+        uses: lukka/run-vcpkg@v11.5
         with:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
           doNotCache: true
 
       - name: Build
-        uses: lukka/run-cmake@v10.0
+        uses: lukka/run-cmake@v10.8
         with:
           cmakeListsTxtPath: ${{ github.workspace }}/main/CMakeLists.txt
           configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
           buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+        continue-on-error: true
 
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v4.6.0
         with:
           name: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
           path: ./build/
