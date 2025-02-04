@@ -1,0 +1,74 @@
+name: Main CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/main_ci.yml"
+      - ".github/workflows/release.yml"
+      - "cmake/**"
+      - "include/**"
+      - "src/**"
+      - "tests/**"
+      - "CMakeLists.txt"
+      - "CMakePresets.json"
+      - "conanfile.py"
+      - "vcpkg.json"
+  pull_request:
+    branches: [main, feature/*]
+  workflow_dispatch:
+
+env:
+  VCPKG_COMMIT_ID: fc3f61366102c1f0d4547c06d03c523bb18c13a7
+
+jobs:
+  build-and-test-vcpkg:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build-type:
+          # - debug
+          - release
+        runtime:
+          - all
+          # - flatrim
+          # - ae
+          # - se
+          # - vr
+        compiler:
+          - msvc
+          # - clang-cl
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+      - name: Setup MSVC Environment
+        uses: ilammy/msvc-dev-cmd@v1.10.0
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v10.0
+        with:
+          vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
+          doNotCache: true
+
+      - name: Build
+        uses: lukka/run-cmake@v10.0
+        with:
+          cmakeListsTxtPath: ${{ github.workspace }}/main/CMakeLists.txt
+          configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+          buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+          path: ./build/
+
+      # - name: Release
+      #   uses: ncipollo/release-action@v1.14.0
+      #   with:
+      #     allowUpdates: true
+      #     artifacts: |
