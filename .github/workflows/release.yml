@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.0
         with:
           name: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-          path: ${{ github.workspace }}/build/
+          path: ${{ github.workspace }}/main/build/
 
       # - name: Release
       #   uses: ncipollo/release-action@v1.14.0
