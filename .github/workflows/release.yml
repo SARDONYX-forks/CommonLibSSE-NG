@@ -63,11 +63,13 @@ jobs:
       #     configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
       #     buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
       #   continue-on-error: true
+      - run: New-Item -ItemType Directory ./build -ErrorAction SilentlyContinue
+        shell: pwsh
       - name: Preset
-        run: cmake -S . --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+        run: cd build && cmake --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
         continue-on-error: true
       - name: Build
-        run: cmake -S . --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+        run: cd build && cmake -S . --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
