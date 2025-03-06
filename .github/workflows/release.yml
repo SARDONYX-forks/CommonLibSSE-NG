@@ -54,13 +54,17 @@ jobs:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
           doNotCache: true
 
+      # - name: Build
+      #   uses: lukka/run-cmake@v10.8
+      #   with:
+      #     cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
+      #     configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+      #     buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+      #   continue-on-error: true
+      - name: Preset
+        run: cmake --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
       - name: Build
-        uses: lukka/run-cmake@v10.8
-        with:
-          cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
-          configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-          buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-        continue-on-error: true
+        run: cmake --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
