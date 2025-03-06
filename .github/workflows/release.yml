@@ -63,6 +63,7 @@ jobs:
       #   continue-on-error: true
       - name: Preset
         run: cmake --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+        continue-on-error: true
       - name: Build
         run: cmake --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
 
