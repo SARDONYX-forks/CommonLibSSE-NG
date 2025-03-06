@@ -45,7 +45,7 @@ jobs:
       # Install latest CMake and Ninja.
       - uses: lukka/get-cmake@latest
         with:
-          cmakeVersion: 3.19
+          cmakeVersion: 3.22
 
       - name: Setup MSVC Environment
         uses: ilammy/msvc-dev-cmd@v1.13.0
@@ -56,17 +56,13 @@ jobs:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
           doNotCache: true
 
-      # - name: Build
-      #   uses: lukka/run-cmake@v10.8
-      #   with:
-      #     cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
-      #     configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-      #     buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-      #   continue-on-error: true
-      - name: Preset
-        run: cmake --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }} -S "${{ github.workspace }}" -Bbuild
       - name: Build
-        run: cmake --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }} -S "${{ github.workspace }}"
+        uses: lukka/run-cmake@v10.8
+        with:
+          cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
+          configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+          buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+        continue-on-error: true
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
