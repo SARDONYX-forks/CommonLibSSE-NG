@@ -64,10 +64,10 @@ jobs:
       #     buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
       #   continue-on-error: true
       - name: Preset
-        run: cmake --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+        run: cmake -S . --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
         continue-on-error: true
       - name: Build
-        run: cmake --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
+        run: cmake -S . --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
