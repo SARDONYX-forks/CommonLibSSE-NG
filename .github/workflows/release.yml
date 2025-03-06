@@ -50,6 +50,9 @@ jobs:
       # Install latest CMake and Ninja.
       - uses: lukka/get-cmake@latest
         with:
+          # This designation is important.
+          # 3.31.5: ver. policy error
+          # 3.19.8: Error with missing src dir or deps lib (e.g. spdlog)
           cmakeVersion: 3.22
 
       - name: Setup MSVC Environment
@@ -80,11 +83,13 @@ jobs:
           buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
         continue-on-error: true
 
+      - name: Install
+        run: cmake --install build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }} --prefix ./build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/x64-windows-static-md
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
         with:
           name: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-          path: ${{ github.workspace }}/build
+          path: ${{ github.workspace }}/build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/
 
       # - name: Release
       #   uses: ncipollo/release-action@v1.14.0

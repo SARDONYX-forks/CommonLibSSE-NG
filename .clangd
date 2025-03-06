@@ -1,7 +1,2 @@
 CompileFlags:
   CompilationDatabase: "build/release-clang-cl-vcpkg-all"
-  Add:
-    - -pedantic
-    - -std=c++23
-    - -Werror -Wall -Wextra -Weffc++ -Wsign-compare -Wshadow -Wwrite-strings -Wpointer-arith -Winit-self -Wconversion -Wno-sign-conversion
-    - -Wundefined-inline
