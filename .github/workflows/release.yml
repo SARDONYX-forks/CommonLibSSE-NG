@@ -17,9 +17,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  VCPKG_COMMIT_ID: fc3f61366102c1f0d4547c06d03c523bb18c13a7
-
 jobs:
   build-and-test-vcpkg:
     runs-on: windows-latest
@@ -50,10 +47,21 @@ jobs:
       - name: Setup MSVC Environment
         uses: ilammy/msvc-dev-cmd@v1.13.0
 
+      # OTClient is made available under the MIT License
+      # Copyright (c) 2010-2020 OTClient <https://github.com/edubart/otclient>
+      # ref: https://github.com/mehah/otclient/actions/runs/13703854793/workflow#L42
+      - name: Restore artifacts and install vcpkg
+        id: vcpkg-step
+        run: |
+          $json=Get-Content vcpkg.json -Raw | ConvertFrom-Json
+          $vcpkgCommitId=$json.'builtin-baseline'
+          Write-Host "vcpkg commit ID: $vcpkgCommitId"
+          echo "vcpkgGitCommitId=$vcpkgCommitId" >> "$GITHUB_OUTPUT"
+
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.5
         with:
-          vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
+          vcpkgGitCommitId: ${{ steps.vcpkg-step.outputs.vcpkgGitCommitId }}
           doNotCache: true
 
       - name: Build
