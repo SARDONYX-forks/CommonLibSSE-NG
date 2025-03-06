@@ -39,6 +39,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.2
 
+      # If we don't have this setting on our local PC, we will get an error during the cloning process.
+      - name: Increase buffer capacity for clone
+        run: git config --global http.postBuffer 524288000
+      # NOTE: Manual for speed emphasis as it is not certain if the checkout does shallow cloning.
+      # https://github.com/actions/checkout/blob/main/src/git-source-provider.ts#L244
+      - name: Clone openvr
+        run: git submodule update --init --depth=1
+
       # Install latest CMake and Ninja.
       - uses: lukka/get-cmake@latest
         with:

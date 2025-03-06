@@ -9,10 +9,7 @@
   "supports": "windows & x64",
   "builtin-baseline": "01f602195983451bc83e72f4214af2cbc495aa94",
   "dependencies": [
-    {
-      "name": "vcpkg-cmake-config",
-      "host": true
-    },
+    { "name": "vcpkg-cmake-config", "host": true },
     "directxmath",
     "directxtk",
     "rapidcsv",
@@ -24,5 +21,11 @@
       "dependencies": ["catch2"]
     }
   },
-  "default-features": ["tests"]
+  "default-features": ["tests"],
+  "overrides": [
+    { "name": "directxmath", "version": "2023-12-31" },
+    { "name": "directxtk", "version": "2023-12-31" },
+    { "name": "rapidcsv", "version": "8.64" },
+    { "name": "spdlog", "version": "1.12.0" }
+  ]
 }
