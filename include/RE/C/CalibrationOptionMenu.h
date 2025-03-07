@@ -19,16 +19,18 @@ namespace RE
 		// override (MenuEventHandler)
 		bool CanProcess(InputEvent* a_event) override;  // 01
 
+		inline void operator delete(void* a_ptr) { RE::free(a_ptr); }  // - explicit for type resolution: RE/M/MemoryManager.h(230,14)
+
 		// members
 		bool unk50;     // 50 - Set in ProcessMessage, cleared in CanProcess
 		char pad51[7];  // 51
 	private:
 		KEEP_FOR_RE()
 	};
-#if defined(EXCLUSIVE_SKYRIM_VR)
+#	if defined(EXCLUSIVE_SKYRIM_VR)
 	static_assert(sizeof(CalibrationOptionMenu) == 0x58);
-#else
+#	else
 	static_assert(sizeof(CalibrationOptionMenu) == 0x48);
-#endif
+#	endif
 }
 #endif

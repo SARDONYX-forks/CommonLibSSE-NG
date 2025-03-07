@@ -24,17 +24,17 @@ jobs:
       fail-fast: false
       matrix:
         build-type:
-          # - debug
+          - debug
           - release
         runtime:
           - all
-          # - flatrim
-          # - ae
-          # - se
-          # - vr
+          - flatrim
+          - ae
+          - se
+          - vr
         compiler:
           - msvc
-          # - clang-cl
+          - clang-cl
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2

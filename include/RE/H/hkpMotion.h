@@ -66,7 +66,14 @@ namespace RE
 
 		float GetMass() const
 		{
-			float massInv = inertiaAndMassInv.quad.m128_f32[3];
+			constexpr int i = 3;
+#if defined(__clang__)
+			// ref: https://stackoverflow.com/questions/12624466/get-member-of-m128-by-index
+			auto  quad = inertiaAndMassInv.quad;
+			float massInv = _mm_cvtss_f32(_mm_shuffle_ps(quad, quad, _MM_SHUFFLE(i, i, i, i)));
+#else
+			float massInv = inertiaAndMassInv.quad.m128_f32[i];  // MSVC
+#endif
 			return massInv != 0.0f ? 1.0f / massInv : 0.0f;
 		}
 
