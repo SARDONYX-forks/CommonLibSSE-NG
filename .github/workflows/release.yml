@@ -86,15 +86,14 @@ jobs:
           cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
           configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
           buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-        continue-on-error: true
 
       - name: Install
-        run: cmake --install build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }} --prefix ./build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/x64-windows-static-md
+        run: cmake --install build/publish/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }} --prefix ./build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/x64-windows-static-md
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
         with:
           name: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
-          path: ${{ github.workspace }}/build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/
+          path: ${{ github.workspace }}/build/publish/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/
 
       # - name: Release
       #   uses: ncipollo/release-action@v1.14.0
