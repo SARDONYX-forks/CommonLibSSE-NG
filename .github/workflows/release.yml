@@ -88,7 +88,7 @@ jobs:
           buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}
 
       - name: Install
-        run: cmake --install build/publish/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }} --prefix ./build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/x64-windows-static-md
+        run: cmake --install build/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }} --prefix ./build/publish/${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.runtime }}/x64-windows-static-md
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
         with:
