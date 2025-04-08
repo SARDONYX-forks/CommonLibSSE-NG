@@ -1,2 +1,5 @@
 CompileFlags:
   CompilationDatabase: "build/release-clang-cl-vcpkg-all"
+
+  # clangd bug work around: https://github.com/clangd/clangd/issues/1850#issuecomment-1841985906
+  Add: ["-std:latest", "/clang:-std=c++23"]
