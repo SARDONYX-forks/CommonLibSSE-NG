@@ -44,7 +44,7 @@ namespace RE
 		{
 #define RUNTIME_DATA_CONTENT                                                                    \
 	std::uint64_t                      unk128;                /* 128 */                         \
-	BSTArray<NiPointer<BSLight>>       activeLights;     /* 130 */                         \
+	BSTArray<NiPointer<BSLight>>       activeLights;          /* 130 */                         \
 	BSTArray<NiPointer<BSShadowLight>> activeShadowLights;    /* 148 */                         \
 	BSTArray<NiPointer<BSLight>>       lightQueueAdd;         /* 160 */                         \
 	BSTArray<NiPointer<BSLight>>       lightQueueRemove;      /* 178 */                         \
@@ -125,10 +125,12 @@ namespace RE
 		}
 
 		BSLight* AddLight(NiLight* a_light, const LIGHT_CREATE_PARAMS& a_params);
+		void     AddLight(BSLight* a_light);
 		BSLight* GetLight(NiLight* a_light);
 		BSLight* GetPointLight(NiLight* a_light);
 		BSLight* GetShadowLight(NiLight* a_light);
 		void     RemoveLight(NiLight* a_light);
+		void     RemoveLight(const NiPointer<BSLight>& a_light);
 
 		// members
 #ifndef SKYRIM_CROSS_VR
