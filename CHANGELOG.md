@@ -1,3 +1,9 @@
+## [9.0.1](https://github.com/alandtse/CommonLibSSE-NG/compare/v9.0.0...v9.0.1) (2026-09-23)
+
+### Bug Fixes
+
+* **actor:** correct GetCurrentAmmo dispatch ([#377](https://github.com/alandtse/CommonLibSSE-NG/issues/377)) ([33e6a96](https://github.com/alandtse/CommonLibSSE-NG/commit/33e6a966001d8c86e52be6e2b38262e6c346353e))
+
 ## [9.0.0](https://github.com/alandtse/CommonLibSSE-NG/compare/v8.4.1...v9.0.0) (2026-09-21)
 
 ### ⚠ BREAKING CHANGES
