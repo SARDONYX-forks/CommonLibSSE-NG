@@ -1,3 +1,9 @@
+## [9.0.2](https://github.com/alandtse/CommonLibSSE-NG/compare/v9.0.1...v9.0.2) (2026-09-24)
+
+### Bug Fixes
+
+* **shadowstate:** fix constant offset type ([#378](https://github.com/alandtse/CommonLibSSE-NG/issues/378)) ([244562f](https://github.com/alandtse/CommonLibSSE-NG/commit/244562f77935996a184614896c16bc1f8cfcbdb5))
+
 ## [9.0.1](https://github.com/alandtse/CommonLibSSE-NG/compare/v9.0.0...v9.0.1) (2026-09-23)
 
 ### Bug Fixes
