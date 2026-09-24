@@ -1,3 +1,9 @@
+## [9.1.0](https://github.com/alandtse/CommonLibSSE-NG/compare/v9.0.2...v9.1.0) (2026-09-24)
+
+### Features
+
+* **actor:** add ChangeHeadPart wrapper ([#375](https://github.com/alandtse/CommonLibSSE-NG/issues/375)) ([3ed84ea](https://github.com/alandtse/CommonLibSSE-NG/commit/3ed84ea498d915071659b1c0d6fdf7bab9da6345))
+
 ## [9.0.2](https://github.com/alandtse/CommonLibSSE-NG/compare/v9.0.1...v9.0.2) (2026-09-24)
 
 ### Bug Fixes
